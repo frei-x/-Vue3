@@ -1,5 +1,6 @@
 # v3
-
+样式 和 html结构:
+> https://github.com/tastejs/todomvc-app-template/blob/master/index.html
 ## Project setup
 ```
 npm install
