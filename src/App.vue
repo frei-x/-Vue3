@@ -1,19 +1,15 @@
 <template>
-  <div>
-    <Test1 />
-  </div>
+  <TodoList />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-import Test1 from './components/Test1.vue'
+import TodoList from '@/components/TodoList/Index.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
-    Test1,
-  },
+    TodoList
+  }
 }
 </script>
 
@@ -26,6 +22,7 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
 hr {
   margin: 20px 0;
   border: 0;
