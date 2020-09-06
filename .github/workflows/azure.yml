@@ -21,7 +21,8 @@ jobs:
     name: Build and Deploy
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
+    - name: Checkout
+      uses: actions/checkout@master
     - name: Build and Deploy
       uses: JamesIves/github-pages-deploy-action@master
     - name: npm install, build
@@ -34,6 +35,7 @@ jobs:
       env:
         AZURE_WEBAPP_NAME: vue3    # set this to your application's name
         AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
         ACCESS_TOKEN: ${{ secrets.TOKEN }}
         BRANCH: gh-pages
         FOLDER: dist
