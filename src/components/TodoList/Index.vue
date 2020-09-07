@@ -35,13 +35,22 @@ export default {
     watchEffect(() => {
       storage.save(listData.value);
     });
+    let count = computed(() => listData.value.length);
+
     provide('shareStore', { refCurrentSelected });
 
     let computedListData = type => {
       if (type === 'all') {
         return readData();
       } else if (type === 'active') {
+        console.log(
+          readData(item => {
+            console.log(item.checked);
+            return !item.checked;
+          })
+        );
         return readData(item => {
+          console.log(item.checked);
           return !item.checked;
         });
       } else {
@@ -51,7 +60,6 @@ export default {
       }
     };
 
-    let count = computed(() => listData.value.length);
     watchEffect(() => {
       console.log(refInputModel.value);
       console.log(listData);

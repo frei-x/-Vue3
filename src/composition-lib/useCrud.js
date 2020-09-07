@@ -22,7 +22,7 @@ export function useCrud (propsData) {
    */
   const readData = (callback) => {
     if (!callback) {
-      return oData
+      return oData.value
     }
     return oData.value.filter((item, index) => {
       console.log(callback)
