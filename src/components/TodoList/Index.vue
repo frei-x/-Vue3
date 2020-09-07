@@ -25,7 +25,7 @@ export default {
   components: {
     FooterFilter,
     MainList,
-    HeaderInput
+    HeaderInput,
   },
   props: {},
   setup() {
@@ -39,30 +39,30 @@ export default {
 
     provide('shareStore', { refCurrentSelected });
 
-    let computedListData = type => {
+    let computedListData = (type) => {
       if (type === 'all') {
         return readData();
       } else if (type === 'active') {
         console.log(
-          readData(item => {
+          readData((item) => {
             console.log(item.checked);
             return !item.checked;
           })
         );
-        return readData(item => {
+        return readData((item) => {
           console.log(item.checked);
           return !item.checked;
         });
       } else {
-        return readData(item => {
+        return readData((item) => {
           return item.checked;
         });
       }
     };
 
     watchEffect(() => {
-      console.log(refInputModel.value);
-      console.log(listData);
+      // console.log(refInputModel.value);
+      // console.log(listData);
     });
 
     return {
@@ -75,9 +75,9 @@ export default {
         createData,
         readData,
         updateData,
-        deleteData
-      }
+        deleteData,
+      },
     };
-  }
+  },
 };
 </script>

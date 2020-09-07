@@ -21,24 +21,24 @@ export default {
   components: {},
   props: {
     list: [Array, Object], //实际上是ref
-    toggleCheckbox: Function
+    toggleCheckbox: Function,
   },
   setup(props, { emit }) {
     const clickCheckbox = (item, index) => {
       console.log(item);
       props.toggleCheckbox(index, { key: 'checked', value: !item.checked });
     };
-    const clickDeleteButton = index => {
+    const clickDeleteButton = (index) => {
       emit('click-delete-button', index);
     };
     watchEffect(() => {
-      console.log(props.list);
+      // console.log(props.list);
     });
 
     return {
       clickCheckbox,
-      clickDeleteButton
+      clickDeleteButton,
     };
-  }
+  },
 };
 </script>
