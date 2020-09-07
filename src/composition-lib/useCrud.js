@@ -25,7 +25,6 @@ export function useCrud (propsData) {
       return oData.value
     }
     return oData.value.filter((item, index) => {
-      console.log(callback)
       return callback(item, index)
     })
   }
