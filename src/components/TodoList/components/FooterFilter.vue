@@ -5,13 +5,13 @@
     </span>
     <ul class="filters">
       <li>
-        <a :class="{ selected: currentSelected == 'all' }" @click="clickFilters('all')" href="#">全部</a>
+        <a :class="{ selected: refCurrentSelected == 'all' }" @click="clickFilters('all')">全部</a>
       </li>
       <li>
-        <a :class="{ selected: currentSelected == 'active' }" href="#" @click="clickFilters('active')">进行中</a>
+        <a :class="{ selected: refCurrentSelected == 'active' }" @click="clickFilters('active')">进行中</a>
       </li>
       <li>
-        <a :class="{ selected: currentSelected == 'completed' }" href="#" @click="clickFilters('completed')">已完成</a>
+        <a :class="{ selected: refCurrentSelected == 'completed' }" @click="clickFilters('completed')">已完成</a>
       </li>
     </ul>
     <!-- <button class="clear-completed">Clear completed</button> -->
@@ -19,33 +19,20 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { inject } from 'vue';
 export default {
   components: {},
   props: {
-    count: [Number, String],
-    filters: Function,
+    count: [Number, String]
   },
-  setup(props) {
-    let currentSelected = ref('all')
-    const clickFilters = (type) => {
-      currentSelected.value = type
-      const params = {
-        ...(type == 'all'
-          ? { key: 'all' }
-          : type == 'active'
-          ? { key: 'checked', value: false }
-          : { key: 'checked', value: true }),
-      }
-      props.filters(params)
-      console.log(params)
-    }
-    return {
-      currentSelected,
-      clickFilters,
-    }
-  },
-}
+  setup() {
+    const { refCurrentSelected } = inject('shareStore');
+    const clickFilters = type => {
+      refCurrentSelected.value = type;
+    };
+    return { clickFilters, refCurrentSelected };
+  }
+};
 </script>
 
 <style lang="scss" scoped>

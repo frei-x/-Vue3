@@ -19,50 +19,50 @@
 </template>
 
 <script>
-import { ref, onMounted, onUnmounted, watchEffect } from 'vue'
+import { ref, onMounted, onUnmounted, watchEffect } from 'vue';
 
 function useMousePosition() {
-  const x = ref(0)
-  const y = ref(0)
+  const x = ref(0);
+  const y = ref(0);
 
   function update(e) {
-    x.value = e.pageX
-    y.value = e.pageY
+    x.value = e.pageX;
+    y.value = e.pageY;
   }
 
   onMounted(() => {
-    window.addEventListener('mousemove', update)
-  })
+    window.addEventListener('mousemove', update);
+  });
 
   onUnmounted(() => {
-    window.removeEventListener('mousemove', update)
-  })
+    window.removeEventListener('mousemove', update);
+  });
 
   return {
     x,
-    y,
-  }
+    y
+  };
 }
 export default {
   name: 'Test1',
   props: {
-    msg: String,
+    msg: String
   },
   mounted() {
-    console.log(2)
+    console.log(2);
   },
   setup(props, { attrs, slots, emit }) {
-    const { x, y } = useMousePosition()
+    const { x, y } = useMousePosition();
     watchEffect(() => {
-      console.log(x.value)
-      console.log(props, attrs, slots, emit)
-    })
+      console.log(x.value);
+      console.log(props, attrs, slots, emit);
+    });
     return {
       x,
-      y,
-    }
-  },
-}
+      y
+    };
+  }
+};
 </script>
 
 <style lang="scss" scoped>

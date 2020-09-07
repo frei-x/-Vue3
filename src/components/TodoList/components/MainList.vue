@@ -16,14 +16,11 @@
 </template>
 
 <script>
-import MainListItem from './MainListItem';
 import { computed, watchEffect } from 'vue';
 export default {
-  components: {
-    MainListItem
-  },
+  components: {},
   props: {
-    list: Array,
+    list: [Array, Object], //实际上是ref
     toggleCheckbox: Function
   },
   setup(props, { emit }) {

@@ -3,14 +3,14 @@
 </template>
 
 <script>
-import TodoList from '@/components/TodoList/Index.vue'
+import TodoList from '@/components/TodoList/Index.vue';
 
 export default {
   name: 'App',
   components: {
     TodoList
   }
-}
+};
 </script>
 
 <style>

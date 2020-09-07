@@ -1,19 +1,25 @@
 <template>
   <section class="todoapp">
-    <HeaderInput v-model="inputModel" :add="useCrud.createData" />
-    <MainList :list="useCrud.listData" :toggleCheckbox="useCrud.updateData" @click-delete-button="useCrud.deleteData" />
+    <HeaderInput v-model="refInputModel" :add="useCrud.createData" />
+    <MainList
+      :list="computedListData(refCurrentSelected)"
+      :toggleCheckbox="useCrud.updateData"
+      @click-delete-button="useCrud.deleteData"
+    />
     <FooterFilter :count="count" :filters="useCrud.readData" />
   </section>
 </template>
 
 <script>
-import { ref, computed, reactive, onMounted, onUnmounted, watchEffect } from 'vue';
+import { ref, computed, provide, reactive, onMounted, onUnmounted, watchEffect } from 'vue';
 
 import { useCrud } from '@/composition-lib/index';
 
 import HeaderInput from './components/HeaderInput';
 import MainList from './components/MainList';
 import FooterFilter from './components/FooterFilter';
+
+import { storage } from '@/utils/localStorage';
 
 export default {
   components: {
@@ -23,16 +29,39 @@ export default {
   },
   props: {},
   setup() {
-    let inputModel = ref('');
-    let [listData, createData, readData, updateData, deleteData] = useCrud([]);
-    let count = computed(() => listData.length);
+    let refInputModel = ref('');
+    let refCurrentSelected = ref('all');
+    let [listData, createData, readData, updateData, deleteData] = useCrud(storage.get() || []);
     watchEffect(() => {
-      console.log(inputModel.value);
+      storage.save(listData.value);
+    });
+    provide('shareStore', { refCurrentSelected });
+
+    let computedListData = type => {
+      if (type === 'all') {
+        return readData();
+      } else if (type === 'active') {
+        return readData(item => {
+          return !item.checked;
+        });
+      } else {
+        return readData(item => {
+          return item.checked;
+        });
+      }
+    };
+
+    let count = computed(() => listData.value.length);
+    watchEffect(() => {
+      console.log(refInputModel.value);
       console.log(listData);
     });
+
     return {
-      inputModel,
+      refInputModel,
+      computedListData,
       count,
+      refCurrentSelected,
       useCrud: {
         listData,
         createData,

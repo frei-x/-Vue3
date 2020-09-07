@@ -14,29 +14,26 @@ export function useCrud (propsData) {
     oData.value.splice(fIndex, 1)
     return fIndex > -1
   }
-  const readData = ({ key, value } = {}) => {
-    oData.value = [{ text: 'h哈哈' }]
-    console.log(oData)
-    return
-    // console.log(oData.value)
-    // let copyData = toRaw(oData.value)
-    // console.log(copyData)
-    // if (key == 'all') {
-    //   oData.value = copyData
-    // }
-    // oData.value = copyData.filter(item => {
-    //   return item[key] == value
-    // })
-    // console.log(oData.value, copyData)
-  }
-  let filterList = computed(() => {
-    return oData.value.filter((item) => {
-      return item.checked == false
+
+  /**
+   * @description 传入 callback 函数  返回符合条件的值
+   * @param {Function} callback(item,index)
+   * @returns {Array}
+   */
+  const readData = (callback) => {
+    if (!callback) {
+      return oData
+    }
+    return oData.value.filter((item, index) => {
+      console.log(callback)
+      return callback(item, index)
     })
-  })
+  }
+
   const updateData = (index, { key, value }) => {
-    if (index < 0) return
+    if (index < 0 || (!index && index != 0)) return
     oData.value[index][key] = value
   }
+
   return [oData, createData, readData, updateData, deleteData]
 }

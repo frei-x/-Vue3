@@ -18,23 +18,23 @@ export default {
   props: {
     modelValue: String,
     modelModifiers: {
-      default: () => ({}),
+      default: () => ({})
     },
-    add: Function,
+    add: Function
   },
   setup(props, { emit }) {
-    const addTodo = (item) => {
-      if (!props.modelValue) return
-      props.add(item)
-      updataModel('')
-    }
-    const updataModel = (e) => {
-      emit('update:modelValue', e ? e.target.value.trim() : '')
-    }
+    const addTodo = item => {
+      if (!props.modelValue) return;
+      props.add(item);
+      updataModel('');
+    };
+    const updataModel = e => {
+      emit('update:modelValue', e ? e.target.value.trim() : '');
+    };
     return {
       addTodo,
-      updataModel,
-    }
-  },
-}
+      updataModel
+    };
+  }
+};
 </script>
