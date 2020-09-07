@@ -1,42 +1,42 @@
 import { ref, reactive, toRaw, toRefs, computed, readonly, onMounted, onUnmounted, watchEffect } from 'vue'
 
 export function useCrud (propsData) {
-  let oData = reactive(propsData)
-  const createData = singleData => {
-    oData.list.unshift(singleData)
+  let oData = ref(propsData)
+  const createData = (singleData) => {
+    oData.value.unshift(singleData)
   }
   const deleteData = (index, { key, value } = {}) => {
     if (index || index == 0) {
-      oData.list.splice(index, 1)
+      oData.value.splice(index, 1)
       return
     }
-    const fIndex = oData.list.findIndex(item => item[key] == value)
-    oData.list.splice(fIndex, 1)
+    const fIndex = oData.value.findIndex((item) => item[key] == value)
+    oData.value.splice(fIndex, 1)
     return fIndex > -1
   }
   const readData = ({ key, value } = {}) => {
-    oData.list[0] = toRefs(oData.list[0])
+    oData.value = [{ text: 'h哈哈' }]
     console.log(oData)
     return
-    // console.log(oData.list)
-    // let copyData = toRaw(oData.list)
+    // console.log(oData.value)
+    // let copyData = toRaw(oData.value)
     // console.log(copyData)
     // if (key == 'all') {
-    //   oData.list = copyData
+    //   oData.value = copyData
     // }
-    // oData.list = copyData.filter(item => {
+    // oData.value = copyData.filter(item => {
     //   return item[key] == value
     // })
-    // console.log(oData.list, copyData)
+    // console.log(oData.value, copyData)
   }
   let filterList = computed(() => {
-    return oData.list.filter(item => {
+    return oData.value.filter((item) => {
       return item.checked == false
     })
   })
   const updateData = (index, { key, value }) => {
     if (index < 0) return
-    oData.list[index][key] = value
+    oData.value[index][key] = value
   }
-  return [oData.list, createData, readData, updateData, deleteData]
+  return [oData, createData, readData, updateData, deleteData]
 }

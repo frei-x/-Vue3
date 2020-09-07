@@ -7,28 +7,29 @@
 </template>
 
 <script>
-import { ref, computed, reactive, onMounted, onUnmounted, watchEffect } from 'vue'
+import { ref, computed, reactive, onMounted, onUnmounted, watchEffect } from 'vue';
 
-import { useCrud } from '@/composition-lib/index'
+import { useCrud } from '@/composition-lib/index';
 
-import HeaderInput from './components/HeaderInput'
-import MainList from './components/MainList'
-import FooterFilter from './components/FooterFilter'
+import HeaderInput from './components/HeaderInput';
+import MainList from './components/MainList';
+import FooterFilter from './components/FooterFilter';
 
 export default {
   components: {
     FooterFilter,
     MainList,
-    HeaderInput,
+    HeaderInput
   },
   props: {},
   setup() {
-    let inputModel = ref('')
-    let [listData, createData, readData, updateData, deleteData] = useCrud({ list: [] })
-    let count = computed(() => listData.length)
+    let inputModel = ref('');
+    let [listData, createData, readData, updateData, deleteData] = useCrud([]);
+    let count = computed(() => listData.length);
     watchEffect(() => {
-      console.log(inputModel.value)
-    })
+      console.log(inputModel.value);
+      console.log(listData);
+    });
     return {
       inputModel,
       count,
@@ -37,9 +38,9 @@ export default {
         createData,
         readData,
         updateData,
-        deleteData,
-      },
-    }
-  },
-}
+        deleteData
+      }
+    };
+  }
+};
 </script>
