@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref } from 'vue';
 /**
  * @description 切换值，布尔类型对调，数组(长度为2)值对调
  * @author 衣沾不足惜 javascript.h@qq.com
@@ -8,35 +8,43 @@ import { ref } from 'vue'
  * @param {String} negationValue? value取反
  */
 export function useToggle (value, negationValue) {
-  let state
-  let toggle
-  let count = 0
+  let state;
+  let toggle;
+  let count = 0;
   // 双参数
   if (negationValue !== undefined) {
-    state = ref(value)
+    state = ref(value);
     toggle = () => {
       if (state.value === value) {
-        state.value = negationValue
+        state.value = negationValue;
       } else {
-        state.value = value
+        state.value = value;
       }
-    }
+    };
   } else {
     // 数组
     if (Array.isArray(value)) {
-      state = ref(value[0])
-      toggle = () => {
-        count++
-        state = value[count % 2]
+      if (value.length === 2) {
+        state = ref(value[0]);
+        toggle = () => {
+          count++;
+          state.value = value[count % 2];
+        };
+      } else {
+        state = ref(value[0]);
+        toggle = () => {
+          count++;
+          state.value = value[count % value.length];
+        };
       }
     } else {
-      state = ref(value)
-      toggle = () => {
-        state = !state
-      }
       // 布尔
+      state = ref(!!value);
+      toggle = () => {
+        state.value = !state.value;
+      };
     }
   }
 
-  return [state, toggle]
+  return [state, toggle];
 }
