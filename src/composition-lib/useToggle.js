@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { ref, readonly } from 'vue';
 /**
  * @description 切换值，布尔类型对调，数组(长度为2)值对调
  * @author 衣沾不足惜 javascript.h@qq.com
@@ -46,5 +46,5 @@ export function useToggle (value, negationValue) {
     }
   }
 
-  return [state, toggle];
+  return [readonly(state), toggle];
 }
