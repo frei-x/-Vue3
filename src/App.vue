@@ -1,15 +1,15 @@
 <template>
-  <TodoList />
+  <!-- <TodoList /> -->
   <TestToggle />
 </template>
 
 <script>
-import TodoList from '@/components/TodoList/Index.vue';
+// import TodoList from '@/components/TodoList/Index.vue';
 import TestToggle from '@/components/TestToggle';
 export default {
   name: 'App',
   components: {
-    TodoList,
+    // TodoList,
     TestToggle,
   },
 };

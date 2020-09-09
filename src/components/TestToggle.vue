@@ -1,21 +1,24 @@
 <template>
-  <div class="box" @click="toggle">点我: {{ state }}</div>
+  <div class="box" @click="toggle">点我: {{ aaa }}</div>
 </template>
 
 <script>
-import { useToggle } from '@/composition-lib/index';
+// import { useToggle } from '@/composition-lib/index';
+import { useToggle } from 'vue-dust';
+console.log(useToggle);
 export default {
   components: {},
   props: {},
   setup() {
-    const [state, toggle] = useToggle(['start', '1', '2', '3', '4', 'end']);
+    const [aaa, toggle] = useToggle(false);
+    console.log(aaa);
     return {
-      state,
+      aaa,
       toggle,
     };
   },
   mounted() {
-    console.log(this.state);
+    console.log(this.aaa);
   },
 };
 </script>

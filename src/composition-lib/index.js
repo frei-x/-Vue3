@@ -1,4 +1,4 @@
-import { useCrud } from './useCrud'
-import { useToggle } from './useToggle'
+import { useCrud } from './useCrud';
+import { useToggle } from './useToggle';
 
-export { useCrud, useToggle }
+export { useCrud, useToggle };
